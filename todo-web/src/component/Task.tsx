@@ -8,7 +8,7 @@ type Props = {
 const Task: React.FC<Props> = (props) => {
   return (
     <Box mb="16px">
-      <Checkbox colorScheme="blue" size="lg">
+      <Checkbox colorPalette="blue" size="lg">
         <Text>{props.name}</Text>
       </Checkbox>
     </Box>
