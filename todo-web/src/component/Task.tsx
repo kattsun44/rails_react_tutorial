@@ -3,12 +3,20 @@ import { Box, Text } from "@chakra-ui/react"
 
 type Props = {
   name: string
+  isDone: boolean
 }
 
 const Task: React.FC<Props> = (props) => {
   return (
     <Box mb="16px">
-      <Checkbox colorPalette="blue" size="lg">
+      <Checkbox
+        isChecked={props.isDone}
+        colorPalette="blue"
+        size="lg"
+        onChange={() => {
+          props.toggleIsDone(props.index)
+        }}
+      >
         <Text>{props.name}</Text>
       </Checkbox>
     </Box>
