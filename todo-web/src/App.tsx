@@ -1,7 +1,7 @@
 import { Box, Center, CheckboxGroup, Text } from '@chakra-ui/react'
 import './App.css'
 import Task from "./component/Task"
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 function App() {
   const initialTasks = [
@@ -19,15 +19,9 @@ function App() {
     },
   ]
 
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(initialTasks)
 
-  // 今回は useEffect の練習
-  // 本来であれば、const [tasks, setTasks] = useState(initialTasks) のように書いて値を初期化するべき
-  useEffect(() => {
-    setTasks(initialTasks)
-  }, [])
-
-  const toggleIsDone = (index) => {
+  const toggleIsDone = (index: number) => {
     const tasksCopy = [...tasks]
     const isDone = tasksCopy[index].isDone
     tasksCopy[index].isDone = !isDone
