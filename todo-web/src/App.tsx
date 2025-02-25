@@ -1,4 +1,4 @@
-import { Box, Center, CheckboxGroup, Text } from '@chakra-ui/react'
+import { Box, Button, Center, CheckboxGroup, Flex, Input, Text } from '@chakra-ui/react'
 import './App.css'
 import Task from "./component/Task"
 import { useEffect, useState } from 'react'
@@ -10,10 +10,20 @@ function App() {
     isDone: boolean
   }
   const [tasks, setTasks] = useState<Task[]>([])
+  const [name, setName] = useState("")
 
   const fetch = async () => {
     const res = await axios.get("http://localhost:3001/tasks")
     setTasks(res.data)
+  }
+
+  const createTask = async () => {
+    await axios.post("http://localhost:3001/tasks", {
+      name: name,
+      is_done: false,
+    })
+    setName("")
+    fetch()
   }
 
   useEffect(() => {
@@ -34,6 +44,18 @@ function App() {
           <Box mb="24px">
             <Text fontSize="24px" fontWeight="bold">タスク一覧</Text>
           </Box>
+          <Flex mb="24px">
+            <Input
+              placeholder="タスク名を入力"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Box ml="16px">
+              <Button colorPalette="teal" onClick={createTask}>
+                タスクを作成
+              </Button>
+            </Box>
+          </Flex>
           <CheckboxGroup>
             {tasks.map((task, index) => {
               return (
