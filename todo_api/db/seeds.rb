@@ -7,3 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Task.delete_all
+
+params = [
+  { name: "運動", is_done: false },
+  { name: "お買い物", is_done: false },
+  { name: "プログラミング学習", is_done: false },
+]
+
+params.each do |param|
+  Task.create!(param)
+end
