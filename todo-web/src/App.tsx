@@ -6,6 +6,7 @@ import axios from 'axios'
 
 function App() {
   type Task = {
+    id: number
     name: string
     isDone: boolean
   }
@@ -23,6 +24,11 @@ function App() {
       is_done: false,
     })
     setName("")
+    fetch()
+  }
+
+  const destroyTask = async (id: number) => {
+    await axios.delete(`http://localhost:3001/tasks/${id}`)
     fetch()
   }
 
@@ -60,11 +66,13 @@ function App() {
             {tasks.map((task, index) => {
               return (
                 <Task
+                  id={task.id}
                   key={index}
                   index={index}
                   name={task.name}
                   isDone={task.isDone}
                   toggleIsDone={toggleIsDone}
+                  destroyTask={destroyTask}
                 />
               )
             })}
