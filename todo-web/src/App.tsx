@@ -8,7 +8,7 @@ function App() {
   type Task = {
     id: number
     name: string
-    isDone: boolean
+    is_done: boolean
   }
   const [tasks, setTasks] = useState<Task[]>([])
   const [name, setName] = useState("")
@@ -32,16 +32,17 @@ function App() {
     fetch()
   }
 
+  const toggleIsDone = async (id: number, index: number) => {
+    const isDone = tasks[index].is_done
+    await axios.put(`http://localhost:3001/tasks/${id}`, {
+      is_done: !isDone
+    })
+    fetch()
+  }
+
   useEffect(() => {
     fetch()
   }, [])
-
-  const toggleIsDone = (index: number) => {
-    const tasksCopy: Task[] = [...tasks]
-    const isDone: boolean = tasksCopy[index].isDone
-    tasksCopy[index].isDone = !isDone
-    setTasks(tasksCopy)
-  }
 
   return (
     <Box mt="64px">
@@ -70,7 +71,7 @@ function App() {
                   key={index}
                   index={index}
                   name={task.name}
-                  isDone={task.isDone}
+                  isDone={task.is_done}
                   toggleIsDone={toggleIsDone}
                   destroyTask={destroyTask}
                 />

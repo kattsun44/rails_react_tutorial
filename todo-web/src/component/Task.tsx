@@ -7,7 +7,7 @@ type Props = {
   index: number
   name: string
   isDone: boolean
-  toggleIsDone: (index: number) => void
+  toggleIsDone: (id: number, index: number) => void
   destroyTask: (id: number) => void
 }
 
@@ -19,7 +19,7 @@ const Task: React.FC<Props> = (props) => {
         colorPalette="blue"
         size="lg"
         onChange={() => {
-          props.toggleIsDone(props.index)
+          props.toggleIsDone(props.id, props.index)
         }}
       >
         <Text>{props.name}</Text>
